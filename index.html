@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hussain M. AlMohsin · Software Engineer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Software Engineering student at Robert Morris University. Cloud, backend systems, databases, robotics. Graduating Fall 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
+
+  <style>
+    :root {
+      --cream:  #faf7f2;
+      --warm:   #f5efe4;
+      --sand:   #e8ddd0;
+      --ink:    #1a1410;
+      --ink2:   #3d2f22;
+      --rust:   #c4441c;
+      --amber:  #e8860a;
+      --gold:   #d4a017;
+      --sage:   #4a7c59;
+      --sky:    #2e6fa3;
+      --border: #d6cab8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--cream);
+      border-bottom: 1.5px solid var(--border);
+      z-index: 1000;
+      padding: 0.9rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--rust);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 2.4rem; }
+
+    nav a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink2);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--rust);
+      transition: width 0.2s;
+    }
+
+    nav a:hover { color: var(--rust); }
+    nav a:hover::after { width: 100%; }
+
+    /* HEADER */
+    header {
+      padding: 9rem 4rem 5rem;
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: end;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .header-left h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--ink);
+      animation: slideUp 0.7s ease-out both;
+    }
+
+    .header-left h1 span { color: var(--rust); }
+
+    .header-tagline {
+      margin-top: 1.2rem;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--ink2);
+      max-width: 480px;
+      animation: slideUp 0.7s ease-out 0.15s both;
+    }
+
+    .header-meta {
+      margin-top: 1.8rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: slideUp 0.7s ease-out 0.3s both;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .chip-rust  { background: #fde8e2; color: var(--rust);  border: 1px solid #f5c6b5; }
+    .chip-amber { background: #fdf3dd; color: #9a5c00;      border: 1px solid #f0d48a; }
+    .chip-sage  { background: #e4f0e8; color: var(--sage);  border: 1px solid #b4d4be; }
+
+    .header-right { text-align: right; animation: slideUp 0.7s ease-out 0.2s both; }
+
+    .avail-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--sage);
+      background: #e4f0e8;
+      border: 1px solid #b4d4be;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .avail-dot {
+      width: 8px; height: 8px;
+      background: var(--sage);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .social-links { display: flex; gap: 1rem; justify-content: flex-end; }
+
+    .social-links a {
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink2);
+      font-size: 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .social-links a:hover {
+      border-color: var(--rust);
+      color: var(--rust);
+      background: #fde8e2;
+    }
+
+    /* SECTIONS */
+    .section-wrap {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4.5rem 4rem;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--rust);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--ink2);
+      margin-bottom: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .about-text p strong { color: var(--ink); font-weight: 600; }
+
+    .callout {
+      background: var(--warm);
+      border: 1.5px solid var(--sand);
+      border-left: 4px solid var(--rust);
+      border-radius: 8px;
+      padding: 1.4rem 1.6rem;
+      margin-top: 1.5rem;
+      font-size: 0.96rem;
+      color: var(--ink2);
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    .stats-col { display: flex; flex-direction: column; gap: 1rem; }
+
+    .stat-box {
+      background: var(--warm);
+      border: 1.5px solid var(--sand);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--rust);
+      line-height: 1;
+      min-width: 4rem;
+    }
+
+    .stat-label { font-size: 0.82rem; color: var(--ink2); font-weight: 400; }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--warm);
+      border: 1.5px solid var(--sand);
+      border-radius: 12px;
+      padding: 1.6rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover { border-color: var(--rust); transform: translateY(-3px); }
+
+    .skill-card-icon { font-size: 1.3rem; color: var(--rust); margin-bottom: 0.8rem; }
+
+    .skill-card h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .skill-card ul { list-style: none; }
+
+    .skill-card li {
+      font-size: 0.88rem;
+      color: var(--ink2);
+      padding: 0.3rem 0;
+      padding-left: 1.1rem;
+      position: relative;
+      font-weight: 300;
+    }
+
+    .skill-card li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-size: 0.75rem;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.8rem;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1.5px solid var(--sand);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      border-color: var(--rust);
+      box-shadow: 0 8px 32px rgba(196,68,28,0.1);
+    }
+
+    .project-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+
+    .project-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--ink2);
+      line-height: 1.75;
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .tag {
+      background: var(--warm);
+      border: 1px solid var(--sand);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      color: var(--ink2);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* EDUCATION */
+    .edu-block {
+      background: #fff;
+      border: 1.5px solid var(--sand);
+      border-radius: 14px;
+      padding: 2.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .edu-school {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .edu-degree { font-size: 0.88rem; color: var(--ink2); font-weight: 300; line-height: 1.6; }
+
+    .gpa-badge {
+      background: var(--rust);
+      color: #fff;
+      border-radius: 12px;
+      padding: 0.8rem 1.4rem;
+      text-align: center;
+      min-width: 90px;
+    }
+
+    .gpa-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .gpa-lbl {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-top: 0.2rem;
+    }
+
+    .semester-section { margin-bottom: 1.6rem; }
+
+    .semester-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .semester-gpa {
+      background: var(--warm);
+      border: 1px solid var(--sand);
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      color: var(--ink2);
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .course-item {
+      background: var(--warm);
+      border: 1px solid var(--sand);
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      display: flex;
+      align-items: center;
+      font-size: 0.83rem;
+    }
+
+    .course-name { color: var(--ink2); font-weight: 400; }
+    .grade-a  { color: var(--sage);  font-weight: 600; font-family: 'DM Mono', monospace; }
+    .grade-b  { color: var(--sky);   font-weight: 600; font-family: 'DM Mono', monospace; }
+    .grade-c  { color: var(--amber); font-weight: 600; font-family: 'DM Mono', monospace; }
+    .grade-d  { color: #c0392b;      font-weight: 600; font-family: 'DM Mono', monospace; }
+    .grade-ip { color: #999;         font-weight: 400; font-family: 'DM Mono', monospace; font-size: 0.75rem; }
+
+    .deans-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fdf3dd;
+      border: 1px solid #f0d48a;
+      color: #7a4d00;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      margin-top: 1.4rem;
+    }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-blurb {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.8;
+    }
+
+    .contact-list { display: flex; flex-direction: column; gap: 0.9rem; }
+
+    .contact-item {
+      background: var(--warm);
+      border: 1.5px solid var(--sand);
+      border-radius: 10px;
+      padding: 1rem 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-item:hover { border-color: var(--rust); background: #fde8e2; }
+
+    .contact-item i { color: var(--rust); font-size: 1.1rem; width: 20px; text-align: center; }
+    .contact-item span { font-size: 0.92rem; font-weight: 400; }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--rust);
+      color: #fff;
+      padding: 0.95rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-top: 1.8rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .cta-button:hover { background: #a33616; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      max-width: 1100px;
+      margin: auto;
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    footer a { color: var(--rust); text-decoration: none; }
+
+    /* ANIMATIONS */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 0.9rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      header { grid-template-columns: 1fr; padding: 8rem 2rem 3rem; }
+      .header-right { text-align: left; }
+      .social-links { justify-content: flex-start; }
+      .section-wrap { padding: 3rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem; }
+    }
+
+    @media (max-width: 560px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .nav-logo { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HMA</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <h1>Hussain M.<br><span>AlMohsin.</span></h1>
+    <p class="header-tagline">Software Engineering student at Robert Morris University. I build cloud systems, backend APIs, databases, and autonomous robots. And I actually ship them.</p>
+    <div class="header-meta">
+      <span class="chip chip-rust">Cloud &amp; AWS</span>
+      <span class="chip chip-amber">Distributed Systems</span>
+      <span class="chip chip-sage">Robotics</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="avail-tag">
+      <span class="avail-dot"></span>
+      Available Fall 2026
+    </div>
+    <div class="social-links">
+      <a href="https://github.com/hussainmalmohsin-a11y" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/hussain-m-almohsin-38966a384" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="mailto:hm.almohsin@hotmail.com" title="Email"><i class="fa-regular fa-envelope"></i></a>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" class="section-wrap fade-in">
+  <div class="section-label">01 · About</div>
+  <h2>Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a senior Software Engineering student at <strong>Robert Morris University</strong>, graduating Fall 2026. My work spans cloud infrastructure on AWS, distributed backend systems, database architecture, full-stack development, and autonomous robotics programming.</p>
+      <p>I've shipped real projects under real deadlines with real teammates. Not just classroom exercises. From a multiplayer card game running in production to an autonomous waste-collection rover, my projects come out the other end working.</p>
+      <div class="callout">
+        I problem solve in everything. Give me something broken, unclear, or stuck and my instinct is to understand it fully before touching it. That shows up in code, but it also shows up in how I approach conversations, decisions, physical things, and situations most people just accept as confusing. I don't stop at the surface of anything.
+      </div>
+    </div>
+    <div class="stats-col">
+      <div class="stat-box">
+        <div class="stat-num">3.26</div>
+        <div class="stat-label">Cumulative GPA at RMU</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">135</div>
+        <div class="stat-label">Total Credit Hours</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">AWS Academy Labs Completed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Team Projects Shipped</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section-wrap fade-in">
+  <div class="section-label">02 · Skills</div>
+  <h2>What I Know</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-card-icon"><i class="fa-brands fa-aws"></i></div>
+      <h3>Cloud &amp; Infrastructure</h3>
+      <ul>
+        <li>AWS EC2, S3, RDS, VPC</li>
+        <li>IAM, CloudFront, Cognito</li>
+        <li>LAMP Stack Deployment</li>
+        <li>Render.com Production Hosting</li>
+        <li>Static Site Hosting</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon"><i class="fa-solid fa-server"></i></div>
+      <h3>Backend &amp; Databases</h3>
+      <ul>
+        <li>Flask &amp; FastAPI</li>
+        <li>PostgreSQL &amp; SQLite</li>
+        <li>SQLAlchemy ORM</li>
+        <li>REST APIs &amp; HTTP Long-Polling</li>
+        <li>Schema Design</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon"><i class="fa-solid fa-code"></i></div>
+      <h3>Languages &amp; Frontend</h3>
+      <ul>
+        <li>Python</li>
+        <li>Java</li>
+        <li>JavaScript &amp; React</li>
+        <li>C++</li>
+        <li>HTML, CSS, SQL</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon"><i class="fa-solid fa-microchip"></i></div>
+      <h3>Robotics &amp; Embedded</h3>
+      <ul>
+        <li>VEX V5 Platform</li>
+        <li>Python Motor Control</li>
+        <li>Sensor Integration</li>
+        <li>Autonomous Logic Design</li>
+        <li>Multisim Circuit Simulation</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon"><i class="fa-solid fa-diagram-project"></i></div>
+      <h3>Systems &amp; Architecture</h3>
+      <ul>
+        <li>Distributed Systems</li>
+        <li>CAP Theorem &amp; Concurrency</li>
+        <li>Data Structures &amp; Algorithms</li>
+        <li>Software Design Patterns</li>
+        <li>Threading &amp; Fault Tolerance</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon"><i class="fa-solid fa-flask"></i></div>
+      <h3>Testing &amp; Tools</h3>
+      <ul>
+        <li>V&amp;V and Test Planning</li>
+        <li>Factory Acceptance Testing</li>
+        <li>CI/CD Pipelines</li>
+        <li>Git &amp; GitHub</li>
+        <li>Figma, VS Code, Linux</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section-wrap fade-in">
+  <div class="section-label">03 · Projects</div>
+  <h2>Things I've Built</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-type">Distributed Systems &nbsp;·&nbsp; Multiplayer Game</div>
+      <h3>Distributed Systems Multiplayer Game</h3>
+      <p>Led all software development on a real-time multiplayer card game. Persistent sessions, reconnection logic, heartbeat monitoring, live chat, and reliable card dealing over HTTP long-polling. Deployed to production on Render.com.</p>
+      <div class="project-tags">
+        <span class="tag">Flask</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">SQLAlchemy</span>
+        <span class="tag">Python</span>
+        <span class="tag">Long-Polling</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Cloud &nbsp;·&nbsp; AWS Academy</div>
+      <h3>AWS Infrastructure Labs</h3>
+      <p>Completed 20+ hands-on AWS Academy labs spanning cloud foundations and architecture. Work covered EC2 LAMP stack deployment, S3 static hosting, VPC networking, RDS database migration, IAM policy management, serverless computing, monitoring, security, and a Cognito plus CloudFront integration. Finished with a capstone project, a 99/100 midterm, and a 95/100 final.</p>
+      <div class="project-tags">
+        <span class="tag">EC2</span>
+        <span class="tag">S3</span>
+        <span class="tag">RDS</span>
+        <span class="tag">VPC</span>
+        <span class="tag">IAM</span>
+        <span class="tag">Cognito</span>
+        <span class="tag">CloudFront</span>
+        <span class="tag">Serverless</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Full-Stack &nbsp;·&nbsp; Data Dashboard</div>
+      <h3>Economic Dashboard</h3>
+      <p>Designed and built the complete database layer for a team dashboard pulling live data from BLS and FRED APIs. A 7-table SQLite schema with clean context manager patterns for session handling, backed by a FastAPI server with a Plotly.js frontend.</p>
+      <div class="project-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">BLS API</span>
+        <span class="tag">FRED API</span>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Robotics &nbsp;·&nbsp; Embedded Systems</div>
+      <h3>VEX V5 Waste Collection Rover</h3>
+      <p>Sole software engineer on an autonomous waste-collection rover built for the ASME Student Design Competition. Wrote all Python control logic for motor driving, sensor feedback, and autonomous collection sequences on VEX V5 hardware.</p>
+      <div class="project-tags">
+        <span class="tag">VEX V5</span>
+        <span class="tag">Python</span>
+        <span class="tag">Motor Control</span>
+        <span class="tag">Autonomous Logic</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Mobile &nbsp;·&nbsp; AR Prototype</div>
+      <h3>FocusPet · AR Study Timer</h3>
+      <p>Designed and prototyped an AR Study Timer with gamified virtual pet mechanics, evolution stages, and an accessories shop. Built a full React iPhone prototype with complete requirements documentation and wireframes.</p>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">Figma</span>
+        <span class="tag">UI/UX</span>
+        <span class="tag">AR Concepts</span>
+        <span class="tag">PRD Writing</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">QA &nbsp;·&nbsp; Software Verification</div>
+      <h3>Hospital Kiosk V&amp;V</h3>
+      <p>Led the testing strategy for a Hospital Patient Check-In Kiosk system. Wrote comprehensive test plans, Factory Acceptance Test presentations, and CI case studies. Applied V-Model methodology to trace requirements all the way through to verification.</p>
+      <div class="project-tags">
+        <span class="tag">Test Planning</span>
+        <span class="tag">FAT</span>
+        <span class="tag">CI/CD</span>
+        <span class="tag">V-Model</span>
+        <span class="tag">Requirements Eng</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="section-wrap fade-in">
+  <div class="section-label">04 · Education</div>
+  <h2>Academic Background</h2>
+
+  <div class="edu-block">
+    <div class="edu-header">
+      <div>
+        <div class="edu-school">Robert Morris University</div>
+        <div class="edu-degree">
+          BS in Engineering · Software Engineering Concentration<br>
+          Moon Township, PA · Graduating Fall 2026
+        </div>
+      </div>
+      <div class="gpa-badge">
+        <div class="gpa-num">3.26</div>
+        <div class="gpa-lbl">GPA</div>
+      </div>
+    </div>
+
+    <!-- Fall 2024 -->
+    <div class="semester-section">
+      <div class="semester-label">
+        Fall 2024
+        <span class="semester-gpa">3.40 semester GPA</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-item"><span class="course-name">Survey of Economics</span></div>
+        <div class="course-item"><span class="course-name">Adv Java: Application Programming</span></div>
+        <div class="course-item"><span class="course-name">Data Mining Applications</span></div>
+        <div class="course-item"><span class="course-name">Engineering Statistics</span></div>
+        <div class="course-item"><span class="course-name">Public Speaking and Persuasion</span></div>
+      </div>
+    </div>
+
+    <!-- Spring 2025 -->
+    <div class="semester-section">
+      <div class="semester-label">
+        Spring 2025
+        <span class="semester-gpa">3.64 semester GPA</span>
+        <span class="deans-badge" style="margin-top:0; font-size:0.7rem; padding: 0.2rem 0.7rem;"><i class="fa-solid fa-star"></i> Dean's List</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-item"><span class="course-name">Data Structures &amp; Algorithms</span></div>
+        <div class="course-item"><span class="course-name">General Physics Lab</span></div>
+        <div class="course-item"><span class="course-name">Professional Commun in Workplace</span></div>
+        <div class="course-item"><span class="course-name">Fundamentals of Software Engineering</span></div>
+        <div class="course-item"><span class="course-name">Computer Architecture</span></div>
+      </div>
+    </div>
+
+    <!-- Fall 2025 -->
+    <div class="semester-section">
+      <div class="semester-label">
+        Fall 2025
+        <span class="semester-gpa">2.80 semester GPA</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-item"><span class="course-name">Value Design</span></div>
+        <div class="course-item"><span class="course-name">Prototyping &amp; Interface Design</span></div>
+        <div class="course-item"><span class="course-name">Software Design &amp; Construction</span></div>
+        <div class="course-item"><span class="course-name">Distributed Systems Implementation</span></div>
+        <div class="course-item"><span class="course-name">Linear Algebra with Applications</span></div>
+      </div>
+    </div>
+
+    <!-- Spring 2026 -->
+    <div class="semester-section">
+      <div class="semester-label">
+        Spring 2026
+        <span class="semester-gpa">3.39 semester GPA</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-item"><span class="course-name">Intro Financial Accounting</span></div>
+        <div class="course-item"><span class="course-name">Cloud Computing &amp; AWS</span></div>
+        <div class="course-item"><span class="course-name">Integrated Engineering Design</span></div>
+        <div class="course-item"><span class="course-name">Database Management System</span></div>
+        <div class="course-item"><span class="course-name">Software Verification and Validation</span></div>
+        <div class="course-item"><span class="course-name">Circuits and Electromagnetics</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="edu-block">
+    <div class="edu-header">
+      <div>
+        <div class="edu-school">Arizona State University</div>
+        <div class="edu-degree">Transfer Credit · 69 Credit Hours Accepted</div>
+      </div>
+    </div>
+    <p style="color: var(--ink2); font-size: 0.92rem; font-weight: 300; line-height: 1.75;">Completed foundational coursework including Calculus I through III, Discrete Math, Java Programming, Visual Basic, and General Physics. All credits accepted by RMU toward the BS in Engineering.</p>
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-wrap fade-in">
+  <div class="section-label">05 · Contact</div>
+  <h2>Let's Talk</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-blurb">I'm graduating Fall 2026 and looking for full-time roles, internships, and freelance work. If you're building something in cloud infrastructure, distributed systems, or developer tooling, reach out.</p>
+      <a href="mailto:hm.almohsin@hotmail.com" class="cta-button">
+        <i class="fa-solid fa-paper-plane"></i> Get in Touch
+      </a>
+    </div>
+    <div class="contact-list">
+      <a class="contact-item" href="mailto:hm.almohsin@hotmail.com">
+        <i class="fa-regular fa-envelope"></i>
+        <span>hm.almohsin@hotmail.com</span>
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/hussain-m-almohsin-38966a384" target="_blank">
+        <i class="fa-brands fa-linkedin"></i>
+        <span>LinkedIn Profile</span>
+      </a>
+      <a class="contact-item" href="https://github.com/hussainmalmohsin-a11y" target="_blank">
+        <i class="fa-brands fa-github"></i>
+        <span>GitHub Portfolio</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Hussain M. AlMohsin</span>
+  <span>Built from scratch &nbsp;·&nbsp; <a href="mailto:hm.almohsin@hotmail.com">hm.almohsin@hotmail.com</a></span>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 250) current = s.id; });
+    document.querySelectorAll('nav a').forEach(a => {
+      a.style.color = '';
+      if (a.getAttribute('href') === '#' + current) a.style.color = 'var(--rust)';
+    });
+  });
+</script>
+
+</body>
+</html>
